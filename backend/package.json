@@ -1,0 +1,19 @@
+{
+  "name": "redis-cbs-demo-backend",
+  "version": "1.0.0",
+  "description": "Redis Enterprise for Core Banking modernization - Demo backend",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "seed": "node src/seed.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "ioredis": "^5.4.1",
+    "nanoid": "^5.0.7",
+    "pg": "^8.13.0"
+  }
+}

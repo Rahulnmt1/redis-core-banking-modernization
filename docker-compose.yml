@@ -1,0 +1,52 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: cbs-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: cbs
+      POSTGRES_PASSWORD: cbs
+      POSTGRES_DB: cbs
+    command:
+      - postgres
+      - -c
+      - wal_level=logical
+      - -c
+      - max_replication_slots=8
+      - -c
+      - max_wal_senders=8
+    ports:
+      - "5433:5432"
+    volumes:
+      - cbs-pg-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cbs -d cbs"]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+
+  redis-enterprise:
+    image: redislabs/redis:latest
+    container_name: cbs-redis-enterprise
+    restart: unless-stopped
+    cap_add:
+      - sys_resource
+    privileged: true
+    ports:
+      - "8443:8443"     # Cluster Manager UI
+      - "9443:9443"     # REST API
+      - "12000:12000"   # cbs-cache database endpoint
+    environment:
+      - LOG_LEVEL=warning
+    volumes:
+      - cbs-re-data:/var/opt/redislabs
+    healthcheck:
+      test: ["CMD", "/opt/redislabs/bin/rladmin", "status"]
+      interval: 5s
+      timeout: 5s
+      retries: 60
+      start_period: 30s
+
+volumes:
+  cbs-pg-data:
+  cbs-re-data:
