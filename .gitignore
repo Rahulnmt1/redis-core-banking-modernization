@@ -15,9 +15,8 @@ backend/cbs.sqlite-shm
 
 # secrets
 .env
-.env.*
+.env*
 *.env
-.envrc
 .dev.vars
 .dev.vars.*
 !.env.example
