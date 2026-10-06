@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/shri-radha.png" alt="श्री राधा" width="200">
+</p>
+
 # Redis Enterprise · Core Banking Modernization Demo
 
 A polished, single-screen demo that visualizes **use cases 1–7** from the
